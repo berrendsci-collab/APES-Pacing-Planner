@@ -1,131 +1,108 @@
-import {
-  StepIntro,
-  WizardActions,
-} from "@/components/layout/WizardActions";
-import { PageContainer, PageHeader } from "@/components/layout/PageContainer";
-import { Card } from "@/components/ui/Card";
-import { FormField } from "@/components/ui/FormField";
-import { Input } from "@/components/ui/Input";
-import { Textarea } from "@/components/ui/Textarea";
-import { DEFAULT_SCHEDULE_SETTINGS, SCHEDULE_TYPE_OPTIONS, WIZARD_STEP_COUNT } from "@/lib/constants";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Schedule",
-};
-
-/**
- * Schedule page — captures how instructional time is structured.
- *
- * Sprint 1: Static form UI. Schedule calculations arrive in a later sprint.
- */
 export default function SchedulePage() {
-  const defaults = DEFAULT_SCHEDULE_SETTINGS;
-
   return (
-    <PageContainer>
-      <PageHeader
-        badge={`Step 2 of ${WIZARD_STEP_COUNT}`}
-        title="Schedule"
-        description="Describe how your APES class meets during the week."
-      />
+    <main className="max-w-4xl mx-auto p-8">
+      <h1 className="text-3xl font-bold mb-2">
+        Schedule
+      </h1>
 
-      <StepIntro>
-        The College Board Course and Exam Description assumes 45-minute periods
-        meeting five days per week. Adjust these values to match your school.
-      </StepIntro>
+      <p className="text-gray-600 mb-8">
+        Tell us about your school calendar and class schedule.
+      </p>
 
-      <Card elevated>
-        <form className="space-y-6" aria-label="Schedule settings form">
-          <fieldset className="space-y-3">
-            <legend className="text-sm font-medium text-forest-800">
-              Schedule type
-            </legend>
-            <div className="grid gap-3">
-              {SCHEDULE_TYPE_OPTIONS.map((option) => (
-                <label
-                  key={option.value}
-                  className="flex cursor-pointer items-start gap-3 rounded-lg border border-forest-200 p-4 transition-colors has-[:checked]:border-forest-500 has-[:checked]:bg-forest-50"
-                >
-                  <input
-                    type="radio"
-                    name="scheduleType"
-                    value={option.value}
-                    defaultChecked={defaults.scheduleType === option.value}
-                    className="mt-1 h-4 w-4 border-forest-300 text-forest-600 focus:ring-forest-500"
-                  />
-                  <span>
-                    <span className="block text-sm font-medium text-forest-900">
-                      {option.label}
-                    </span>
-                    <span className="block text-xs text-forest-600">
-                      {option.description}
-                    </span>
-                  </span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
+      <div className="space-y-6">
 
-          <div className="grid gap-6 sm:grid-cols-2">
-            <FormField
-              id="periodLengthMinutes"
-              label="Period length (minutes)"
-              hint="College Board default is 45 minutes"
-              required
-            >
-              <Input
-                id="periodLengthMinutes"
-                name="periodLengthMinutes"
-                type="number"
-                min={20}
-                max={120}
-                step={5}
-                defaultValue={defaults.periodLengthMinutes}
-                required
-              />
-            </FormField>
+        <div>
+          <label className="block font-semibold mb-2">
+            School Start Date
+          </label>
+          <input
+            type="date"
+            className="border rounded p-2 w-full"
+          />
+        </div>
 
-            <FormField
-              id="daysPerWeek"
-              label="Instructional days per week"
-              hint="Days your APES class meets"
-              required
-            >
-              <Input
-                id="daysPerWeek"
-                name="daysPerWeek"
-                type="number"
-                min={1}
-                max={7}
-                defaultValue={defaults.daysPerWeek}
-                required
-              />
-            </FormField>
-          </div>
+        <div>
+          <label className="block font-semibold mb-2">
+            School End Date
+          </label>
+          <input
+            type="date"
+            className="border rounded p-2 w-full"
+          />
+        </div>
 
-          <FormField
-            id="scheduleNotes"
-            label="Schedule notes"
-            hint="Early release days, RTI periods, assembly schedules, etc."
-          >
-            <Textarea
-              id="scheduleNotes"
-              name="scheduleNotes"
-              placeholder="e.g., 30-minute RTI period every Wednesday"
-              defaultValue={defaults.notes}
-              rows={3}
-            />
-          </FormField>
-        </form>
-      </Card>
+        <div>
+          <label className="block font-semibold mb-2">
+            Schedule Type
+          </label>
 
-      <WizardActions
-        backHref="/school-information"
-        backLabel="School Information"
-        nextHref="/calendar"
-        nextLabel="Continue to Calendar"
-      />
-    </PageContainer>
+          <select className="border rounded p-2 w-full">
+            <option>Daily</option>
+            <option>A/B Block</option>
+            <option>Traditional Block</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block font-semibold mb-2">
+            Class Period Length (minutes)
+          </label>
+
+          <input
+            type="number"
+            className="border rounded p-2 w-full"
+            placeholder="55"
+          />
+        </div>
+
+        <div>
+          <label className="block font-semibold mb-2">
+            Days Per Week
+          </label>
+
+          <input
+            type="number"
+            className="border rounded p-2 w-full"
+            placeholder="5"
+          />
+        </div>
+
+        <div>
+          <label className="block font-semibold mb-2">
+            District Holidays and Breaks
+          </label>
+
+          <textarea
+            rows={6}
+            className="border rounded p-2 w-full"
+            placeholder="Paste or list district holidays, breaks, and other days students are not in class."
+          />
+        </div>
+
+        <div>
+          <label className="block font-semibold mb-2">
+            Special Schedule Notes
+          </label>
+
+          <textarea
+            rows={5}
+            className="border rounded p-2 w-full"
+            placeholder="Include any scheduling information that may affect pacing."
+          />
+        </div>
+
+      </div>
+
+      <div className="flex justify-between mt-10">
+        <button className="border rounded px-6 py-2 hover:bg-gray-100">
+          Back
+        </button>
+
+        <button className="bg-green-600 text-white rounded px-6 py-2 hover:bg-green-700">
+          Next
+        </button>
+      </div>
+    </main>
   );
 }
