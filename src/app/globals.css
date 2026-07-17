@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 246 247 244;
+    --foreground: 17 31 24;
+    --muted: 233 236 227;
+    --muted-foreground: 78 72 55;
+    --border: 212 218 202;
+    --ring: 77 133 96;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-sage-50 text-forest-950 antialiased;
+  }
+
+  /* Consistent focus styles for keyboard navigation */
+  :focus-visible {
+    @apply outline-none ring-2 ring-forest-500 ring-offset-2 ring-offset-sage-50;
+  }
+}
+
+@layer components {
+  .page-heading {
+    @apply text-3xl font-bold tracking-tight text-forest-900 sm:text-4xl;
+  }
+
+  .page-subheading {
+    @apply mt-2 max-w-2xl text-base text-forest-700 sm:text-lg;
+  }
+
+  .section-heading {
+    @apply text-lg font-semibold text-forest-900;
+  }
+}
